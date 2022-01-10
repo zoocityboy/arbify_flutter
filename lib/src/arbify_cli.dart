@@ -104,8 +104,10 @@ class ArbifyCli {
           print(e.toString());
         }
       } else {
-        print('Exception while communicating with the Arbify '
-            'at ${apiUrl.toString()}\n');
+        print(
+          'Exception while communicating with the Arbify '
+          'at ${apiUrl.toString()}\n',
+        );
         print(e.toString());
       }
 
