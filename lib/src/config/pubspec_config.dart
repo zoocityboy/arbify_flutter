@@ -23,6 +23,5 @@ class PubspecConfig {
   }
 
   @override
-  String toString() =>
-      'PubspecConfig { url: $url, projectId: $projectId, outputDir: $outputDir }';
+  String toString() => 'PubspecConfig { url: $url, projectId: $projectId, outputDir: $outputDir }';
 }

@@ -1,19 +1,19 @@
 name: arbify_counter_app
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.0
 
 dev_dependencies:
   arbify:
@@ -24,7 +24,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-
 arbify:
-  url: http://localhost:8000
-  project_id: 4
+  url: http://192.168.1.113:8100
+  project_id: 1

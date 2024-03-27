@@ -52,8 +52,7 @@ class ArbifyCli {
 
     try {
       final api = ArbifyApi(apiUrl: apiUrl, secret: apiSecret);
-      final availableExports =
-          await api.fetchAvailableExportsForProj(projectId);
+      final availableExports = await api.fetchAvailableExportsForProj(projectId);
 
       final arbParser = ArbParser();
       final localArbFiles = _fileUtils.fetch(_arbFilesPattern);
@@ -68,13 +67,11 @@ class ArbifyCli {
       for (final availableExport in availableExports) {
         stdout.write(availableExport.languageCode.padRight(20));
 
-        final DateTime? localFileLastModified =
-            availableLocalFiles[availableExport.languageCode];
+        final DateTime? localFileLastModified = availableLocalFiles[availableExport.languageCode];
 
         /// If there is no local file for a given export or if it's older
         /// than the available export, download it.
-        if (localFileLastModified == null ||
-            localFileLastModified.isBefore(availableExport.lastModified)) {
+        if (localFileLastModified == null || localFileLastModified.isBefore(availableExport.lastModified)) {
           stdout.write('Downloading... ');
 
           final remoteArb = await api.fetchExport(
@@ -93,22 +90,22 @@ class ArbifyCli {
       stdout.write('Generating messages dart files... ');
       await Generator().generateAsync();
       stdout.write('done\n');
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.badResponse) {
         if (e.response?.statusCode == 403) {
           PrintInstructions.apiForbidden(projectId);
         } else if (e.response?.statusCode == 404) {
           PrintInstructions.apiNotFound(projectId);
         } else {
           print('API exception\n');
-          print(e.toString());
+          print(e);
         }
       } else {
         print(
           'Exception while communicating with the Arbify '
-          'at ${apiUrl.toString()}\n',
+          'at $apiUrl\n',
         );
-        print(e.toString());
+        print(e);
       }
 
       exit(3);
